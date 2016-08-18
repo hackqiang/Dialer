@@ -1,0 +1,2 @@
+# Dialer
+tizen simple game
