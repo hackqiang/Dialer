@@ -1,0 +1,9 @@
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+
+edctool = edje_cc
+edcflags = -id "Z:/good-eye/edje/images" -id "D:/tizen-sdk/tools/enventor/share/enventor/images" -sd "Z:/good-eye/edje/sounds" -sd "D:/tizen-sdk/tools/enventor/share/enventor/sounds" -fd "Z:/good-eye/edje/fonts" -fd "D:/tizen-sdk/tools/enventor/share/enventor/fonts"
+
+build res/edje/main.edj: build_edc ../res/edje/main.edc 

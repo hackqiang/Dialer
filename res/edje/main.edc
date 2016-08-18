@@ -1,0 +1,282 @@
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd
+ *
+ * Licensed under the Flora License, Version 1.1 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://floralicense.org/license/
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */ 
+
+#define DIALER_BG_COLOR 0 4 8 255
+
+#define PART_DIAL_BUTTON(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT) \
+   part {\
+      name: NAME".digit";\
+      type: TEXT;\
+      mouse_events: 1;\
+      description {\
+         state: "default" 0;\
+         fixed: 1 1;\
+         align: 0.0 0.0;\
+         min: 50 45;\
+         rel1 { relative: POSITION; to: "sw.button.bg"; }\
+         rel2 { relative: POSITION; to: "sw.button.bg"; }\
+         text { \
+            text: DIGIT;\
+            font: "SamsungSansNum-4L:style=regular"; size: 34; align: 0.5 0.5; \
+         }\
+      }\
+   }\
+   part {\
+      name: NAME".txt";\
+      type: TEXT;\
+      mouse_events: 0;\
+      description {\
+         state: "default" 0;\
+         fixed: 1 1;\
+         align: 0.0 0.0;\
+         min: 50 24;\
+         rel1 { relative: 0.0 1.0; offset: 0 -8; to: NAME".digit"; }\
+         rel2 { relative: 0.0 1.0; offset: 0 -8; to: NAME".digit"; }\
+         text { \
+            text: TXT;\
+            font: "Tizen:style=regular"; size: 18; align: 0.5 0.5; \
+         }\
+         color : 250 250 250 (255*77/100);\
+      }\
+   }\
+   part {\
+      name: NAME".touch_image";\
+      type: IMAGE;\
+      description {\
+         state: "default" 0.0;\
+         fixed: 1 1;\
+         min: 128 128;\
+         visible: 0;\
+         rel1 { relative: POSITION_EFFECT; to: "sw.button.bg"; }\
+         rel2 { relative: POSITION_EFFECT; to: "sw.button.bg"; }\
+         image.normal: "dialer_button_press_circle_bg.png";\
+      }\
+      description {\
+         state: "default" 0.5;\
+         inherit: "default" 0.0;\
+         visible: 1;\
+         color : 250 250 250 (255*10/100);\
+      }\
+      description {\
+         state: "default" 1.0;\
+         inherit: "default" 0.0;\
+         min: 160 160;\
+         visible: 1;\
+         color : 250 250 250 (255*10/100);\
+      }\
+   }
+
+#define PART_DIAL_BUTTON_3(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT) \
+   PART_DIAL_BUTTON(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT)\
+      part {\
+         name: NAME".txt.2";\
+         type: TEXT;\
+         mouse_events: 0;\
+         description {\
+            state: "default" 0;\
+            fixed: 1 1;\
+            align: 0.0 0.0;\
+            min: 50 26;\
+            rel1 { relative: 0.0 1.0; offset: 0 -6; to: NAME".txt"; }\
+            rel2 { relative: 0.0 1.0; offset: 0 -6; to: NAME".txt"; }\
+            text {\
+                  text: "#";\
+                  font: "Tizen:style=regular"; size: 20; align: 0.5 0.5; \
+            }\
+            color : 250 250 250 (255*66/100);\
+         }\
+      }
+
+
+#define PART_DIAL_BUTTON_5(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT) \
+   PART_DIAL_BUTTON(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT)\
+      part {\
+         name: NAME".txt.2";\
+         type: TEXT;\
+         mouse_events: 0;\
+         description {\
+            state: "default" 0;\
+            fixed: 1 1;\
+            align: 0.0 0.0;\
+            min: 14 34;\
+            rel1 { relative: 1.0 0.0; offset: -14 -6; to: NAME".txt"; }\
+            rel2 { relative: 1.0 0.0; offset: -14 -6; to: NAME".txt"; }\
+            text {\
+                  text: "+";\
+                  font: "Tizen:style=regular"; size: 26; align: 0.5 0.5; \
+            }\
+            color : 250 250 250 (255*66/100);\
+         }\
+      }
+
+#define PART_DIAL_BUTTON_7(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT) \
+   PART_DIAL_BUTTON(NAME, DIGIT, TXT, POSITION, POSITION_EFFECT)\
+      part {\
+         name: NAME".txt.2";\
+         type: TEXT;\
+         mouse_events: 0;\
+         description {\
+            state: "default" 0;\
+            fixed: 1 1;\
+            align: 0.0 0.0;\
+            min: 50 26;\
+            rel1 { relative: 0.0 1.0; offset: 0 -2; to: NAME".txt"; }\
+            rel2 { relative: 0.0 1.0; offset: 0 -2; to: NAME".txt"; }\
+            text {\
+                  text: "*";\
+                  font: "Tizen:style=regular"; size: 30; align: 0.5 0.5; \
+            }\
+            color : 250 250 250 (255*70/100);\
+         }\
+      }
+
+#define PROGRAM_DIAL_BUTTON_ANIMATION(NAME) \
+   program\
+   {\
+      name: NAME".animation";\
+      source: NAME;\
+      signal: "button.dial.touch";\
+      action: STATE_SET "default" 0.5;\
+      target: NAME".touch_image";\
+      after: NAME".animation2";\
+   }\
+   program\
+   {\
+      name: NAME".animation2";\
+      action: STATE_SET "default" 1.0;\
+      target: NAME".touch_image";\
+      transition: LINEAR 0.2;\
+      after: NAME".animation3";\
+   }\
+   program\
+   {\
+      name: NAME".animation3";\
+      action: STATE_SET "default" 0.0;\
+      target: NAME".touch_image";\
+   }
+
+images
+{
+    image: "dialer_button_press_circle_bg.png" COMP;
+    image: "dialer_fadeout.#.png" COMP;
+}
+
+collections {
+   group { name: "main";
+      parts {
+         part { name: "bg";
+            type: RECT;
+            description { state: "default" 0.0;
+               rel1 { relative: 0.0 0.0; }
+               rel2 { relative: 1.0 1.0; }
+               color : DIALER_BG_COLOR;
+            }
+         }
+         part { name: "sw.button.bg";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               rel1 { relative: 0.0 0.0; }
+               rel2 { relative: 1.0 1.0; }
+            }
+         }
+         part { name: "sw.button.call.ef";
+            type: SWALLOW;
+            description { state: "default" 0.0;
+               state: "default" 0;
+               fixed: 1 1;
+               align: 0.5 0.0;
+               min: 92 53;
+               rel1 { relative: 0.5 94/360; }
+               rel2 { relative: 0.5 94/360; }
+            }
+         }
+         part { name: "sw.button.call";
+            type: SWALLOW;
+            mouse_events: 1;
+            description { state: "default" 0.0;
+               state: "default" 0;
+               fixed: 1 1;
+               align: 0.5 0.0;
+               min: 92 53;
+               rel1 { relative: 0.5 94/360; }
+               rel2 { relative: 0.5 94/360; }
+            }
+         }
+         part { name: "sw.button.delete";
+            type: SWALLOW;
+            mouse_events: 1;
+            description { state: "default" 0.0;
+               state: "default" 0;
+               fixed: 1 1;
+               align: 0.5 0.0;
+               min: 92 53;
+               rel1 { relative: 0.5 213/360; }
+               rel2 { relative: 0.5 213/360; }
+            }
+         }
+         part { name: "sw.image.effect";
+            type: IMAGE;
+            mouse_events: 0;
+            description {
+               state: "default" 0;
+               fixed: 1 1;
+               align: 0.5 0.0;
+               min: 220 45;
+               rel1 { relative: 0.5 157/360;}
+               rel2 { relative: 0.5 157/360;}
+               image.normal: "dialer_fadeout.#.png";
+               image.border: 17 0 0 0;
+            }
+         }
+         part { name: "sw.entry.dial";
+            type: SWALLOW;
+            mouse_events: 0;
+            clip_to: "sw.image.effect";
+            description {
+               state: "default" 0;
+               fixed: 1 1;
+               align: 0.5 0.0;
+               min: 220 45;
+               rel1 { relative: 0.5 157/360;}
+               rel2 { relative: 0.5 157/360;}
+            }
+         }
+         PART_DIAL_BUTTON("button.0",   "0", "",   155/360 12/360,      180/360 35/360);
+         PART_DIAL_BUTTON("button.1",   "1", "",   240/360 41/360,      265/360 63/360);
+         PART_DIAL_BUTTON("button.2",   "2", "ABC",   292/360 106/360,   318/360 135/360);
+         PART_DIAL_BUTTON_3("button.3",   "3", "DEF",   292/360 196/360,    318/360 225/360);
+         PART_DIAL_BUTTON("button.4",   "4", "GHI",   240/360 265/360,   265/360 297/360);
+         PART_DIAL_BUTTON_5("button.5",   "5", "JKL",   155/360 292/360,    180/360 325/360);
+         PART_DIAL_BUTTON("button.6",   "6", "MNO",   70/360 264/360,      95/360 297/360);
+         PART_DIAL_BUTTON_7("button.7",   "7", "PQRS",18/360 194/360,      42/360 225/360);
+         PART_DIAL_BUTTON("button.8",   "8", "TUV",   18/360 104/360,      42/360 135/360);
+         PART_DIAL_BUTTON("button.9",   "9", "WXZ",   70/360 30/360,      95/360 63/360);
+      }
+      programs 
+      {
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.0");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.1");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.2");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.3");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.4");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.5");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.6");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.7");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.8");
+         PROGRAM_DIAL_BUTTON_ANIMATION("button.9");
+      }
+   }
+}
