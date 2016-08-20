@@ -83,11 +83,27 @@ char *data_get_image_path(const char *part_name)
 		else if (!strcmp("sw.image.effect", part_name))
 			snprintf(full_path, sizeof(full_path) - 1, "%s%s", res_path, "images/dialer_fadeout.#.png");
 		else {
-			dlog_print(DLOG_ERROR, LOG_TAG, "failed to get image.");
-			free(res_path);
-			return NULL;
+			snprintf(full_path, sizeof(full_path) - 1, "%s%s", res_path, "images/dialer_button_bg.png");
 		}
 
+		ret = strdup(full_path);
+		free(res_path);
+	}
+
+	return ret;
+}
+
+char *data_get_level_full_image_path(const char *path)
+{
+	/*
+	 * You can use this function to retrieve data.
+	 */
+	char *ret = NULL;
+	char full_path[PATH_MAX] = { 0, };
+	char *res_path = app_get_resource_path();
+
+	if (res_path) {
+		snprintf(full_path, sizeof(full_path) - 1, "%s%s%s", res_path, "images/", path);
 		ret = strdup(full_path);
 		free(res_path);
 	}

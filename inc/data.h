@@ -29,5 +29,6 @@ void data_finalize(void);
 
 void data_get_full_path(const char *file_path, char *full_path, int path_max);
 char *data_get_image_path(const char *part_name);
+char *data_get_level_full_image_path(const char *path);
 #endif
 

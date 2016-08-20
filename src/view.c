@@ -21,6 +21,7 @@
 #include <Elementary.h>
 #include "dialer.h"
 #include "view.h"
+#include "data.h"
 
 static struct view_info {
 	Evas_Object *win;
@@ -31,6 +32,8 @@ static struct view_info {
 	Ecore_Timer *timer;
 
 	int mouse_down_dial_num;
+	int level;
+	int total_level;
 } s_info = {
 	.win = NULL,
 	.conform = NULL,
@@ -38,7 +41,35 @@ static struct view_info {
 
 	.entry = NULL,
 	.timer = NULL,
-	.mouse_down_dial_num = -1
+	.mouse_down_dial_num = -1,
+	.level = 0,
+	.total_level = 4
+};
+
+static struct level_info {
+	int answer;
+	char *image;
+} level_data[100] = {
+		{
+				.answer = 0,
+				.image = "lv1.png"
+		},
+		{
+				.answer = 1,
+				.image = "lv1.png"
+		},
+		{
+				.answer = 2,
+				.image = "lv2.png"
+		},
+		{
+				.answer = 3,
+				.image = "lv3.png"
+		},
+		{
+				.answer = 4,
+				.image = "lv4.png"
+		}
 };
 
 static void _win_delete_request_cb(void *data, Evas_Object *obj, void *event_info);
@@ -340,6 +371,7 @@ void view_set_color(Evas_Object *parent, const char *part_name, int r, int g, in
 
 	/* Set color of target part object */
 	evas_object_color_set(obj, r, g, b, a);
+
 }
 
 /*
@@ -537,6 +569,8 @@ int view_dialer_set_entry_text(int operation, const char *text)
 				free(new_entry_text);
 			}
 		}
+	} else if (operation == ENTRY_TEXT_SHOW) {
+		elm_object_text_set(s_info.entry, text);
 	} else {
 		dlog_print(DLOG_ERROR, LOG_TAG, "view_set_entry_text text operation is invalid!");
 		return -1;
@@ -688,20 +722,14 @@ static void _rectangle_mouse_down_cb(void *data, Evas *e, Evas_Object *obj, void
 {
 	Evas_Event_Mouse_Down *ev = (Evas_Event_Mouse_Down*) event_info;
 	s_info.mouse_down_dial_num = _get_btn_dial_number(ev->output.x, ev->output.y);
-
+	dlog_print(DLOG_DEBUG, LOG_TAG, "%d", s_info.mouse_down_dial_num);
 	if (s_info.mouse_down_dial_num != -1) {
 		char signal[9] = {0, };
 
 		/* Trigger touch animation */
 		snprintf(signal, sizeof(signal), "%s%d", "button.", s_info.mouse_down_dial_num);
 		elm_layout_signal_emit(s_info.layout, "button.dial.touch", signal);
-
-		if (s_info.mouse_down_dial_num == 3
-				|| s_info.mouse_down_dial_num == 5
-				|| s_info.mouse_down_dial_num == 7) {
-			s_info.timer = ecore_timer_add(LONGPRESS_TIME, _longpress_timer_cb, NULL);
-			dlog_print(DLOG_DEBUG, LOG_TAG, "Timer SET 0x%x", s_info.timer);
-		}
+		dlog_print(DLOG_DEBUG, LOG_TAG, "%s", signal);
 	}
 }
 
@@ -714,9 +742,11 @@ static void _rectangle_mouse_down_cb(void *data, Evas *e, Evas_Object *obj, void
  */
 static void _rectangle_mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *event_info)
 {
+	dlog_print(DLOG_DEBUG, LOG_TAG, "%d", s_info.mouse_down_dial_num);
 	/* Clear Timer */
 	if (s_info.timer != NULL) {
 		dlog_print(DLOG_DEBUG, LOG_TAG, "Timer DELETE 0x%x - mouse up", s_info.timer);
+
 		ecore_timer_del(s_info.timer);
 		s_info.timer = NULL;
 	}
@@ -728,8 +758,28 @@ static void _rectangle_mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *
 	/* Set new Entry text */
 	char new_dial[2] = { 0, };
 	snprintf(new_dial, sizeof(new_dial), "%d", s_info.mouse_down_dial_num);
-	view_dialer_set_entry_text(ENTRY_TEXT_ADD_TEXT, new_dial);
+	//view_dialer_set_entry_text(ENTRY_TEXT_ADD_TEXT, new_dial);
+	dlog_print(DLOG_DEBUG, LOG_TAG, "%s", new_dial);
 
+
+	if(s_info.level == 0 || level_data[s_info.level].answer == s_info.mouse_down_dial_num) {
+		s_info.level ++;
+		if(s_info.total_level < s_info.level) {
+			view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "Congratulations!");
+			s_info.level = 0;
+		} else {
+			char *image = level_data[s_info.level].image;
+			view_set_image(view_dialer_get_layout_object(), "sw.button.bg", data_get_level_full_image_path(image));
+			char levels[10] = { 0 };
+			snprintf(levels, sizeof(levels), "level %d", s_info.level);
+			view_dialer_set_entry_text(ENTRY_TEXT_SHOW, levels);
+		}
+
+	} else {
+		view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "Game Over");
+		s_info.level = 0;
+	}
+	_dialer_text_resize(s_info.entry);
 	/* Initialize event records */
 	s_info.mouse_down_dial_num = -1;
 }

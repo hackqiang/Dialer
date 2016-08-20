@@ -4,15 +4,15 @@
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>SfpUhc8BJkk/8nMFntFsTsNNs6h0ZBMbkTgSgTT0VoU=</DigestValue>
+<DigestValue>mGxfIS3n9YeGq6Z2ft4g/KewQtdW8smHMSCyi1sImyQ=</DigestValue>
 </Reference>
 <Reference URI="bin%2Fdialer">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>fI9VlHCUB/e+qSp+60dfJUK7Q05LuoglQRtI7C76kbA=</DigestValue>
+<DigestValue>idzI/VePsaytX0rSHlA6RI/saeJvJUHv0Bl76HD4Y+M=</DigestValue>
 </Reference>
 <Reference URI="res%2Fedje%2Fmain.edj">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>uAjjC9daaNPgrdW9drCKciyB2soa/k9wcWuVbJwvcBY=</DigestValue>
+<DigestValue>NvUTtfJ5+fkPo3txd5XrRs7Pm1BwI9JmvVQzYXss2gc=</DigestValue>
 </Reference>
 <Reference URI="res%2Fimages%2Fdialer_btn_back.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -38,6 +38,22 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>XWy3c5tHTb9vINxqhtzwsQCSZFtQPtegy3pp4FVrEkQ=</DigestValue>
 </Reference>
+<Reference URI="res%2Fimages%2Flv1.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>4m+PMSEe6pdlDcA/1h+IL/bcTCAtPBcbwPSr/becR7k=</DigestValue>
+</Reference>
+<Reference URI="res%2Fimages%2Flv2.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>d30HVg37TnnnUeDq+c2WDJ9raEsd14R0U/hcuuuP9mg=</DigestValue>
+</Reference>
+<Reference URI="res%2Fimages%2Flv3.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>QCrO9zQn2D7u0E7+N+YTvvgzhBmH7S7Qs7E2RQhKd8M=</DigestValue>
+</Reference>
+<Reference URI="res%2Fimages%2Flv4.png">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>6Ew2TLbEQDHPwlcg3wkxiaVB+Qhopj0mHSp9iXoUw7M=</DigestValue>
+</Reference>
 <Reference URI="shared%2Fres%2Fdialer.png">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>1d0oEZHqPn+QzNzGIHwj9ODby6x9ggFs9uOsav6jPNs=</DigestValue>
@@ -48,7 +64,7 @@
 </Reference>
 <Reference URI="tizen-manifest.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>pV2wGQ2db8fBnMzkL6o7Mw5BoKKgW26KfIHdtyn3ee8=</DigestValue>
+<DigestValue>2K7jPohRMO4YipukuPH+aFmfRnOSSx4afnPQSvylqZg=</DigestValue>
 </Reference>
 <Reference URI="#prop">
 <Transforms>
@@ -59,9 +75,9 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-YJJGBhi1KezdmDsuUIagKhfy37EnbIT9j/sGbvzVAsnp/Uvgv87r6HxFraHafRmfgdc8t8jAGr1X
-trhpiTmNWm1qmV4vqFnUuc98PK9/5iBV+lc2QIRMPZl/0YJmj8MYmTlGjT05SCBN+0/TBJZpkn97
-BnsFDYaagKTKnWIJQwI=
+gfW4zl1gi+8XxnpmI/Fvsb3BKzEIjrD8oExaIY329ZkV6qrKcVwUeqZL/7B+KAY4+w+yCA94ZoRS
+idvCjODFZY4R0yjBcqSUy0W7HoC+PMdgg3oRbTp+cvn92KIp1O9ZYSFA2FIE47vlw14JWdRzUA1D
+mgS8YjeVlRLtA6KID6A=
 </SignatureValue>
 <KeyInfo>
 <X509Data>

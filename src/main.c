@@ -52,33 +52,17 @@ static bool app_create(void *user_data)
 	/* Set background image to "sw.button.bg" part of EDC */
 	image = data_get_image_path("sw.button.bg");
 	view_set_image(view_dialer_get_layout_object(), "sw.button.bg", image);
-	view_set_color(view_dialer_get_layout_object(), "sw.button.bg", 8, 36, 61, 255);
-	free(image);
-
-	/* Set Call button effect image to "sw.button.call.ef" part of EDC */
-	image = data_get_image_path("sw.button.call.ef");
-	view_set_image(view_dialer_get_layout_object(), "sw.button.call.ef", image);
-	view_set_color(view_dialer_get_layout_object(), "sw.button.call.ef", 0, 0, 0, 255);
-	free(image);
-
-	/* Set Call button image to "sw.button.call" part of EDC */
-	image = data_get_image_path("sw.button.call");
-	view_set_image(view_dialer_get_layout_object(), "sw.button.call", image);
-	view_set_color(view_dialer_get_layout_object(), "sw.button.call", 0, 214, 46, 255);
-	free(image);
-
-	/* Set Delete button to "sw.button.delete" part of EDC */
-	image = data_get_image_path("sw.button.delete");
-	view_set_button(view_dialer_get_layout_object(), "sw.button.delete", "focus", image, NULL, _btn_down_cb, _btn_up_cb, NULL, NULL);
-	view_set_color(view_dialer_get_layout_object(), "sw.button.delete", 250, 250, 250, 255);
+	//view_set_color(view_dialer_get_layout_object(), "sw.button.bg", 8, 36, 61, 255);
 	free(image);
 
 	/* Set Entry widget to "sw.entry.dial" part of EDC to display input dial number */
 	view_dialer_set_entry("sw.entry.dial");
-	view_set_color(view_dialer_get_layout_object(), "sw.entry.dial", 250, 250, 250, 255);
+	//view_set_color(view_dialer_get_layout_object(), "sw.entry.dial", 250, 250, 250, 255);
 
 	/* Set full size Rectangle to catch circular dial button touch */
 	view_dialer_create_rectangle();
+
+	view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "type any color to start");
 
 	return true;
 }
