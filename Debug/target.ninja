@@ -1,4 +1,4 @@
-build main_build: phony dialer res
+build main_build: phony goodeye res
 build all: phony main_build
 default all
 edje-cc-options = -deps
