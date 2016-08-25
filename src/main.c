@@ -62,7 +62,7 @@ static bool app_create(void *user_data)
 	/* Set full size Rectangle to catch circular dial button touch */
 	view_dialer_create_rectangle();
 
-	view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "type any color to start");
+	view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "Type any color to start");
 
 	return true;
 }

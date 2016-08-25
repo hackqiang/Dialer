@@ -43,7 +43,7 @@ static struct view_info {
 	.timer = NULL,
 	.mouse_down_dial_num = -1,
 	.level = 0,
-	.total_level = 4
+	.total_level = 20
 };
 
 static struct level_info {
@@ -52,24 +52,89 @@ static struct level_info {
 } level_data[100] = {
 		{
 				.answer = 0,
-				.image = "lv1.png"
-		},
-		{
-				.answer = 1,
-				.image = "lv1.png"
+				.image = "0"
 		},
 		{
 				.answer = 2,
+				.image = "lv1.png"
+		},
+		{
+				.answer = 0,
 				.image = "lv2.png"
 		},
 		{
-				.answer = 3,
+				.answer = 7,
 				.image = "lv3.png"
 		},
 		{
-				.answer = 4,
+				.answer = 9,
 				.image = "lv4.png"
-		}
+		},
+		{
+				.answer = 3,
+				.image = "lv5.png"
+		},
+		{
+				.answer = 2,
+				.image = "lv6.png"
+		},
+		{
+				.answer = 9,
+				.image = "lv7.png"
+		},
+		{
+				.answer = 5,
+				.image = "lv8.png"
+		},
+		{
+				.answer = 6,
+				.image = "lv9.png"
+		},
+		{
+				.answer = 1,
+				.image = "lv10.png"
+		},
+		{
+				.answer = 6,
+				.image = "lv11.png"
+		},
+		{
+				.answer = 7,
+				.image = "lv12.png"
+		},
+
+		{
+				.answer = 3,
+				.image = "lv13.png"
+		},
+		{
+				.answer = 4,
+				.image = "lv14.png"
+		},
+		{
+				.answer = 8,
+				.image = "lv15.png"
+		},
+		{
+				.answer = 2,
+				.image = "lv16.png"
+		},
+		{
+				.answer = 6,
+				.image = "lv17.png"
+		},
+		{
+				.answer = 0,
+				.image = "lv18.png"
+		},
+		{
+				.answer = 6,
+				.image = "lv19.png"
+		},
+		{
+				.answer = 2,
+				.image = "lv20.png"
+		},
 };
 
 static void _win_delete_request_cb(void *data, Evas_Object *obj, void *event_info);
@@ -765,18 +830,20 @@ static void _rectangle_mouse_up_cb(void *data, Evas *e, Evas_Object *obj, void *
 	if(s_info.level == 0 || level_data[s_info.level].answer == s_info.mouse_down_dial_num) {
 		s_info.level ++;
 		if(s_info.total_level < s_info.level) {
-			view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "Congratulations!");
+			view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "Good Eye!");
 			s_info.level = 0;
 		} else {
 			char *image = level_data[s_info.level].image;
 			view_set_image(view_dialer_get_layout_object(), "sw.button.bg", data_get_level_full_image_path(image));
-			char levels[10] = { 0 };
-			snprintf(levels, sizeof(levels), "level %d", s_info.level);
+			char levels[100] = { 0 };
+			snprintf(levels, sizeof(levels), "Level %d", s_info.level);
 			view_dialer_set_entry_text(ENTRY_TEXT_SHOW, levels);
 		}
 
 	} else {
-		view_dialer_set_entry_text(ENTRY_TEXT_SHOW, "Game Over");
+		char levels[100] = { 0 };
+		snprintf(levels, sizeof(levels), "Your Score: %d", s_info.level);
+		view_dialer_set_entry_text(ENTRY_TEXT_SHOW, levels);
 		s_info.level = 0;
 	}
 	_dialer_text_resize(s_info.entry);
@@ -806,13 +873,12 @@ static void _dialer_text_resize(Evas_Object *entry)
 	int text_length = strlen(dial_entry);
 
 	/* Change Entry text style and size according to length */
-	if (text_length < 12)
+	if (text_length < 10)
 		elm_entry_text_style_user_push(entry, DIAL_TEXT_STYLE_NORMAL);
 	else if (text_length < 15)
 		elm_entry_text_style_user_push(entry, DIAL_TEXT_STYLE_SMALL);
 	else
 		elm_entry_text_style_user_push(entry, DIAL_TEXT_STYLE_SMALLER);
-
 	/* Set entry cursor to end for displaying last updated entry text*/
 	elm_entry_cursor_end_set(entry);
 }
